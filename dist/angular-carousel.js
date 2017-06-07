@@ -1,6 +1,6 @@
 /**
  * Angular Carousel - Mobile friendly touch carousel for AngularJS
- * @version v1.0.2 - 2016-11-25
+ * @version v1.1.0 - 2017-06-07
  * @link http://revolunet.github.com/angular-carousel
  * @author Julien Bouquillon <julien@revolunet.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -295,7 +295,8 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                             locked = false;
 
                         //rn-swipe-disabled =true will only disable swipe events
-                        if(iAttributes.rnSwipeDisabled !== "true") {
+                        if(iAttributes.rnSwipeDisabled !== "true" 
+                            || iAttributes.rnCarouselDisableTouch !== "true") {
                             $swipe.bind(iElement, {
                                 start: swipeStart,
                                 move: swipeMove,
@@ -682,7 +683,34 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                 }
             };
         }
-    ]);
+    ])
+
+    .directive('rnCarouselClick', ['$parse', function($parse){
+        return {
+            compile: function(element, attr) {
+                var fn = $parse(attr.rnCarouselClick, /* interceptorFn */ null, /* expensiveChecks */ true);
+                return function ngEventHandler(scope, element) {
+                    var click = true;
+                    element.on('click', function(event) { 
+                        if (click){
+                            var callback = function() {
+                                fn(scope, {$event:event});
+                            };
+                            scope.$apply(callback);
+                        }  
+                    });
+
+                    element.on('touchstart mousedown', function(){
+                        click = true;
+                    });
+
+                    element.on('touchmove mousemove', function(){
+                        click = false;
+                    });
+               };
+            }
+        };
+    }]);
 })();
 
 
