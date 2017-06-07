@@ -67,11 +67,13 @@ angular.module('MyApp', ['angular-carousel']);
  - `rn-carousel-auto-slide` add this attribute to make the carousel slide automatically after given seconds (default=3)
  - `rn-carousel-transition` : transition type, can be one of `slide, zoom, hexagon, fadeAndSlide, none`. (default=slide)
  - `rn-carousel-locked`: two way binding boolean that lock/unlock the carousel
+ - `rn-carousel-disable-touch`: add this attribute to disable touch events
  - `rn-carousel-deep-watch`: Deep watch the collection which enable to dynamically add slides at beginning without corrupting position
  - `rn-carousel-easing`: add this attritube to specify a formula for easing, these can be found in the [shifty
  library](https://github.com/jeremyckahn/shifty/blob/master/src/shifty.formulas.js) (default=easeIn)
  - `rn-carousel-duration`: add this attribute to set the duration of the transition (default=300)
  - `rn-carousel-controls-allow-loop`: add this attribute to allow looping through slides from prev/next controls
+ - `rn-carousel-click`: add this attribute to handle angular click event and fix touch & click issue in IE
 
 ## Indicators
 

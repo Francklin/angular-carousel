@@ -216,7 +216,8 @@
                             locked = false;
 
                         //rn-swipe-disabled =true will only disable swipe events
-                        if(iAttributes.rnSwipeDisabled !== "true") {
+                        if(iAttributes.rnSwipeDisabled !== "true" 
+                            || iAttributes.rnCarouselDisableTouch !== "true") {
                             $swipe.bind(iElement, {
                                 start: swipeStart,
                                 move: swipeMove,
