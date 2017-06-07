@@ -603,5 +603,32 @@
                 }
             };
         }
-    ]);
+    ])
+
+    .directive('rnCarouselClick', ['$parse', function($parse){
+        return {
+            compile: function(element, attr) {
+                var fn = $parse(attr.rnCarouselClick, /* interceptorFn */ null, /* expensiveChecks */ true);
+                return function ngEventHandler(scope, element) {
+                    var click = true;
+                    element.on('click', function(event) { 
+                        if (click){
+                            var callback = function() {
+                                fn(scope, {$event:event});
+                            };
+                            scope.$apply(callback);
+                        }  
+                    });
+
+                    element.on('touchstart mousedown', function(){
+                        click = true;
+                    });
+
+                    element.on('touchmove mousemove', function(){
+                        click = false;
+                    });
+               };
+            }
+        };
+    }]);
 })();
