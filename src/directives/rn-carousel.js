@@ -217,7 +217,7 @@
 
                         //rn-swipe-disabled =true will only disable swipe events
                         if(iAttributes.rnSwipeDisabled !== "true" 
-                            || iAttributes.rnCarouselDisableTouch !== "true") {
+                            && iAttributes.rnCarouselDisableTouch !== "true") {
                             $swipe.bind(iElement, {
                                 start: swipeStart,
                                 move: swipeMove,
@@ -225,6 +225,10 @@
                                 cancel: function(event) {
                                     swipeEnd({}, event);
                                 }
+                            });
+                            iElement.bind("dragstart",function(e){
+                                if(e.preventDefault) e.preventDefault();
+                                return false;
                             });
                         }
 
